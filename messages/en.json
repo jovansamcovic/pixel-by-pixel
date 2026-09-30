@@ -58,6 +58,17 @@
       "selectedPixel": "#{pixel}",
       "redirectNotice": "You'll be redirected to a secure payment page (RaiAccept / Raiffeisen Bank). After payment, we'll bring you back to the site.",
       "submit": "Continue to payment"
+    },
+    "sheet": {
+      "title": "Buy a pixel",
+      "close": "Close"
+    },
+    "success": {
+      "eyebrow": "Thank you!",
+      "title": "Your pixel is shining",
+      "description": "Pixel <strong>#{pixel}</strong> is now part of the Heart of Kragujevac. Share it and invite your friends to color theirs too.",
+      "shareButton": "Share to Instagram story",
+      "resetButton": "Choose another pixel"
     }
   },
   "BottomMenu": {
@@ -97,5 +108,57 @@
   "Footer": {
     "disclaimer": "This is a demo concept for a charity platform. All names, amounts and donors are illustrative. Real payments and personal data storage are not enabled.",
     "copyright": "© {year} Srce Kragujevca. All rights reserved."
+  },
+  "InstagramStoryDialog": {
+    "brandName": "Heart of Kragujevac",
+    "modal": {
+      "closeLabel": "Close"
+    },
+    "sheet": {
+      "title": "Share a story"
+    },
+    "story": {
+      "fileName": "heart-of-kragujevac-story",
+      "title": {
+        "first": "My pixel",
+        "highlighted": "shines in the Heart",
+        "last": "of Kragujevac"
+      },
+      "linkStickerLabel": "Buy a pixel",
+      "cardMessage": {
+        "mine": "This is my pixel.",
+        "question": "Have you picked yours?"
+      }
+    },
+    "preview": {
+      "modalTitle": "Story image preview",
+      "closeLabel": "Close preview",
+      "ariaLabel": "Instagram story image preview"
+    },
+    "controls": {
+      "eyebrow": "Your pixel is ready",
+      "title": "Show it to the world",
+      "steps": {
+        "share": "Tap “Share to Instagram”",
+        "instagram": "Choose Instagram Stories",
+        "publish": "Add a link sticker over the label and post"
+      },
+      "previewButton": "Preview image",
+      "preparing": "Creating image",
+      "shareButton": "Share to Instagram"
+    },
+    "sharing": {
+      "title": "Heart of Kragujevac",
+      "text": "My pixel is now part of the Heart of Kragujevac. Choose yours too!"
+    },
+    "status": {
+      "downloaded": "Image saved. Open Instagram and add it to your story.",
+      "shared": "Shared! Thanks for spreading the word.",
+      "cancelled": "Sharing cancelled.",
+      "preparationFailed": "We couldn't create the image. Please try again."
+    },
+    "errors": {
+      "imageGeneration": "Image generation failed."
+    }
   }
 }

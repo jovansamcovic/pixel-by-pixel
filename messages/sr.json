@@ -58,6 +58,17 @@
       "selectedPixel": "#{pixel}",
       "redirectNotice": "Bićeš preusmeren/a na sigurnu stranicu za plaćanje (RaiAccept / Raiffeisen banka). Nakon uplate vraćamo te nazad na sajt.",
       "submit": "Nastavi na plaćanje"
+    },
+    "sheet": {
+      "title": "Kupi piksel",
+      "close": "Zatvori"
+    },
+    "success": {
+      "eyebrow": "Hvala ti!",
+      "title": "Tvoj piksel sija",
+      "description": "Piksel <strong>#{pixel}</strong> je sada deo Srca Kragujevca. Podeli ga i pozovi prijatelje da i oni oboje svoj.",
+      "shareButton": "Podeli na Instagram story",
+      "resetButton": "Izaberi još jedan piksel"
     }
   },
   "BottomMenu": {
@@ -97,5 +108,57 @@
   "Footer": {
     "disclaimer": "Ovo je demo koncept humanitarne platforme. Sva imena, iznosi i donatori su ilustrativni. Stvarna plaćanja i čuvanje ličnih podataka nisu omogućeni.",
     "copyright": "© {year} Srce Kragujevca. Sva prava zadržana."
+  },
+  "InstagramStoryDialog": {
+    "brandName": "Srce Kragujevca",
+    "modal": {
+      "closeLabel": "Zatvori"
+    },
+    "sheet": {
+      "title": "Podeli story"
+    },
+    "story": {
+      "fileName": "srce-kragujevca-story",
+      "title": {
+        "first": "Moj piksel",
+        "highlighted": "sija u Srcu",
+        "last": "Kragujevca"
+      },
+      "linkStickerLabel": "Kupi piksel",
+      "cardMessage": {
+        "mine": "Ovo je moj piksel.",
+        "question": "Jesi li ti izabrao svoj?"
+      }
+    },
+    "preview": {
+      "modalTitle": "Pregled story slike",
+      "closeLabel": "Zatvori pregled",
+      "ariaLabel": "Pregled Instagram story slike"
+    },
+    "controls": {
+      "eyebrow": "Tvoj piksel je spreman",
+      "title": "Pokaži ga svetu",
+      "steps": {
+        "share": "Klikni na „Podeli na Instagram”",
+        "instagram": "Izaberi Instagram Stories",
+        "publish": "Dodaj link stiker preko oznake i objavi"
+      },
+      "previewButton": "Pogledaj sliku",
+      "preparing": "Pravimo sliku",
+      "shareButton": "Podeli na Instagram"
+    },
+    "sharing": {
+      "title": "Srce Kragujevca",
+      "text": "Moj piksel je sada deo Srca Kragujevca. Izaberi i ti svoj!"
+    },
+    "status": {
+      "downloaded": "Slika je sačuvana. Otvori Instagram i dodaj je u story.",
+      "shared": "Podeljeno! Hvala što širiš priču.",
+      "cancelled": "Deljenje je otkazano.",
+      "preparationFailed": "Nismo uspeli da napravimo sliku. Pokušaj ponovo."
+    },
+    "errors": {
+      "imageGeneration": "Generisanje slike nije uspelo."
+    }
   }
 }
