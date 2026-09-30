@@ -10,7 +10,13 @@
     }
   },
   "Countdown": {
-    "ariaLabel": "Preostalo vreme do kraja kampanje"
+    "ariaLabel": "Preostalo vreme do kraja kampanje",
+    "units": {
+      "d": "dan",
+      "h": "sat",
+      "m": "min",
+      "s": "sek"
+    }
   },
   "CampaignWidget": {
     "priceLine": "1 PIKSEL = {price}",
@@ -89,7 +95,7 @@
   "HowItWorks": {
     "title": "Kako radi",
     "close": "Zatvori",
-    "headline": "Tri koraka.\nJedan piksel.\nJedno dobro delo.",
+    "headline": "Nekoliko koraka.\nJedan piksel.\nJedno dobro delo.",
     "step1": {
       "title": "Izaberi piksel",
       "text": "Dodirni bilo koji slobodan piksel u srcu ili pusti da ti izaberemo nasumičan."

@@ -10,7 +10,13 @@
     }
   },
   "Countdown": {
-    "ariaLabel": "Time left until the end of the campaign"
+    "ariaLabel": "Time left until the end of the campaign",
+    "units": {
+      "d": "day",
+      "h": "hrs",
+      "m": "min",
+      "s": "sec"
+    }
   },
   "CampaignWidget": {
     "priceLine": "1 PIXEL = {price}",
@@ -89,7 +95,7 @@
   "HowItWorks": {
     "title": "How it works",
     "close": "Close",
-    "headline": "Three steps.\nOne pixel.\nOne good deed.",
+    "headline": "A few steps.\nOne pixel.\nOne good deed.",
     "step1": {
       "title": "Pick a pixel",
       "text": "Tap any free pixel in the heart, or let us pick a random one for you."

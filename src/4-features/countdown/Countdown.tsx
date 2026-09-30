@@ -41,16 +41,16 @@ export function Countdown() {
     <div
       role="timer"
       aria-label={t("ariaLabel")}
-      className="flex shrink-0 items-baseline gap-2.5 sm:gap-4"
+      className="flex shrink-0 items-start gap-3 sm:gap-5"
     >
       {UNITS.map((unit) => (
-        <div key={unit} className="flex items-baseline gap-[2px]">
-          <span className="text-[20px] leading-none tabular-nums text-[#0D2734] sm:text-[26px]">
+        <div key={unit} className="flex min-w-[2ch] flex-col items-center">
+          <span className="text-[22px] leading-none tabular-nums text-[#0D2734] sm:text-[28px]">
             {left ? pad(left[unit]) : "--"}
           </span>
 
-          <span className="text-[10px] uppercase leading-none text-[#E52336] sm:text-[12px]">
-            {unit}
+          <span className="mt-1.5 text-[11px] uppercase leading-none tracking-[0.06em] text-[#E52336] sm:text-[13px]">
+            {t(`units.${unit}`)}
           </span>
         </div>
       ))}

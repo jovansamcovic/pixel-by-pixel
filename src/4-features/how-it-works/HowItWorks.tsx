@@ -1,9 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { Sheet } from "@/src/6-shared/ui/bottom-sheet/BottomSheet";
 import { useTranslations } from "next-intl";
-
-
 
 const INFO_ICON = [
   "001111100",
@@ -37,8 +36,6 @@ function InfoIcon({ className }: { className?: string }) {
   );
 }
 
-const STEPS = ["step1", "step2", "step3"] as const;
-
 type HowItWorksProps = {
   open: boolean;
   onClose: () => void;
@@ -46,11 +43,6 @@ type HowItWorksProps = {
 
 export function HowItWorks({ open, onClose }: HowItWorksProps) {
   const t = useTranslations("HowItWorks");
-
-  const handleCta = () => {
-    onClose();
-    document.getElementById("srce")?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <Sheet
@@ -64,42 +56,16 @@ export function HowItWorks({ open, onClose }: HowItWorksProps) {
         {t("headline")}
       </p>
 
-      <ol className="mt-6 space-y-5">
-        {STEPS.map((step, index) => (
-          <li key={step} className="flex gap-4">
-            <span
-              className={[
-                "grid size-9 shrink-0 place-items-center",
-                "bg-[#E52336] text-[16px] leading-none text-white",
-                "shadow-[inset_0_-3px_0_#B5111F]",
-              ].join(" ")}
-            >
-              {index + 1}
-            </span>
-
-            <div>
-              <h3 className="text-[14px] uppercase leading-none text-[#0D2734] sm:text-[15px]">
-                {t(`${step}.title`)}
-              </h3>
-              <p className="mt-2 text-[11px] leading-[1.45] text-[#0D2734] sm:text-[12px]">
-                {t(`${step}.text`)}
-              </p>
-            </div>
-          </li>
-        ))}
-      </ol>
-
-      <p className="mt-6 text-[10px] leading-[1.5] text-[#0D2734]/60">
-        {t("note")}
-      </p>
-
-      <button
-        type="button"
-        onClick={handleCta}
-        className="mt-5 block w-full text-left text-[15px] uppercase leading-[1.25] text-[#E52336] transition hover:text-[#B5111F] sm:text-[17px]"
-      >
-        {t("cta")}
-      </button>
+      <div className="mx-auto mt-6 w-full max-w-[300px] border-[3px] border-[#0D2734] bg-[#FBF4EA] shadow-[6px_6px_0_#0D2734] sm:max-w-[340px]">
+        <Image
+          src="/uputstvo.gif"
+          alt={t("gifAlt")}
+          width={540}
+          height={960}
+          unoptimized
+          className="block h-auto w-full"
+        />
+      </div>
     </Sheet>
   );
 }

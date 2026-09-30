@@ -23,7 +23,13 @@ const INFO_ICON = [
   "001111100",
 ];
 
-function PixelIcon({ rows, className }: { rows: string[]; className?: string }) {
+function PixelIcon({
+  rows,
+  className,
+}: {
+  rows: string[];
+  className?: string;
+}) {
   return (
     <svg
       aria-hidden="true"
@@ -33,11 +39,13 @@ function PixelIcon({ rows, className }: { rows: string[]; className?: string }) 
       fill="currentColor"
     >
       {rows.flatMap((row, y) =>
-        row.split("").map((cell, x) =>
-          cell === "1" ? (
-            <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" />
-          ) : null,
-        ),
+        row
+          .split("")
+          .map((cell, x) =>
+            cell === "1" ? (
+              <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" />
+            ) : null,
+          ),
       )}
     </svg>
   );
@@ -64,6 +72,8 @@ export function BottomMenu({ openSheet, onOpen }: BottomMenuProps) {
       className={[
         "fixed inset-x-0 bottom-0 z-40 md:hidden",
         "rounded-t-[24px] bg-[#FFF6EB]/90 backdrop-blur-md",
+        "border border-b-0 border-[#0D2734]/10",
+        "shadow-[0_-6px_20px_rgba(13,39,52,0.06)]",
         "pb-[env(safe-area-inset-bottom)]",
       ].join(" ")}
     >

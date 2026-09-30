@@ -1,6 +1,12 @@
 "use client";
 
-import { type CSSProperties, type FormEvent, useEffect, useState } from "react";
+import {
+  type CSSProperties,
+  type FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useLocale, useTranslations } from "next-intl";
 
 import {
@@ -112,9 +118,27 @@ export function CampaignWidget({ isMobile }: CampaignWidgetProps) {
   const isDonationDialogOpen =
     (checkoutOpen && selectedPixel !== null) || successPixel !== null;
 
+  const ctaRef = useRef<HTMLButtonElement>(null);
+
+  // Glatko skroluje do dugmeta za kupovinu, samo ako nije već vidljivo
+  const scrollToCta = () => {
+    // Čeka da React primeni novo stanje pre skrola
+    requestAnimationFrame(() => {
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      ctaRef.current?.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "nearest",
+      });
+    });
+  };
+
   const choosePixel = (pixelId: number) => {
     setSelectedPixel(pixelId);
     setSuccessPixel(null);
+    scrollToCta();
   };
 
   const chooseRandomPixel = () => {
@@ -227,6 +251,7 @@ export function CampaignWidget({ isMobile }: CampaignWidgetProps) {
 
         {/* CTA: vidljivo tek kad je piksel izabran, ali zauzima mesto da stranica ne skače */}
         <button
+          ref={ctaRef}
           type="button"
           disabled={!hasSelection}
           tabIndex={hasSelection ? 0 : -1}
@@ -235,6 +260,8 @@ export function CampaignWidget({ isMobile }: CampaignWidgetProps) {
           style={pixelClip}
           className={[
             "group mt-4 block w-full bg-[#0D2734] p-[3px]",
+            // Razmak da dugme ne završi ispod fiksnog bottom menija
+            "scroll-mb-[calc(96px+env(safe-area-inset-bottom))] md:scroll-mb-6",
             "transition duration-200 active:translate-y-[2px]",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52336] focus-visible:ring-offset-2",
             hasSelection ? "opacity-100" : "pointer-events-none opacity-0",
