@@ -1,0 +1,101 @@
+{
+  "Header": {
+    "demoConcept": "Interaktivni demo koncept",
+    "paymentsDisabled": "Plaćanje nije aktivno",
+    "menuAriaLabel": "Otvori meni",
+    "languageSwitchAriaLabel": "Izaberi jezik",
+    "languages": {
+      "sr": "Srpski",
+      "en": "Engleski"
+    }
+  },
+  "Countdown": {
+    "ariaLabel": "Preostalo vreme do kraja kampanje"
+  },
+  "CampaignWidget": {
+    "priceLine": "1 PIKSEL = {price}",
+    "headline": {
+      "line1": "Kupi piksel.",
+      "line2": "Svetlija",
+      "line3": "budućnost."
+    },
+    "description": "Izaberi piksel u srcu i pretvori ga u donaciju za decu u Kragujevcu.",
+    "cta": "Kupi ovaj piksel"
+  },
+  "PixelSelector": {
+    "zoomHint": "Zumiraj prstima ili sa + / −",
+    "randomSelect": "Nasumičan piksel",
+    "randomAriaLabel": "Izaberi nasumičan slobodan piksel",
+    "controls": {
+      "reset": "Resetuj",
+      "resetAriaLabel": "Vrati zum na početno",
+      "zoomIn": "Uvećaj",
+      "zoomOut": "Umanji"
+    }
+  },
+  "PixelHeart": {
+    "ariaLabel": "Piksel srce Kragujevca",
+    "donors": {
+      "mina": "Mina P.",
+      "vukAndTara": "Vuk i Tara",
+      "ilicFamily": "Porodica Ilić",
+      "luka": "Luka M.",
+      "anaAndOgnjen": "Ana i Ognjen",
+      "anonymous": "Anonimno"
+    },
+    "soldAriaLabel": "Piksel {pixel}, već ga je kupio/la {donor}",
+    "availableAriaLabel": "Piksel {pixel}, slobodan. Izaberi ga da doniraš.",
+    "soldTitle": "Donirao/la: {donor}",
+    "availableTitle": "Piksel {pixel}"
+  },
+  "DonationForm": {
+    "defaults": {
+      "anonymousDonor": "Anonimno",
+      "message": "Zajedno stvaramo svetliju budućnost."
+    },
+    "form": {
+      "eyebrow": "Tvoj piksel",
+      "selectedPixel": "#{pixel}",
+      "redirectNotice": "Bićeš preusmeren/a na sigurnu stranicu za plaćanje (RaiAccept / Raiffeisen banka). Nakon uplate vraćamo te nazad na sajt.",
+      "submit": "Nastavi na plaćanje"
+    }
+  },
+  "BottomMenu": {
+    "ariaLabel": "Glavna navigacija",
+    "mission": "Misija",
+    "howItWorks": "Kako radi"
+  },
+  "Mission": {
+    "title": "Misija",
+    "close": "Zatvori",
+    "headline": "Jedan grad.\nJedno srce.\nHiljade\nmalih dela.",
+    "p1": "Od 1. do 31. decembra, zajedno punimo Srce Kragujevca – piksel po piksel.",
+    "p2": "Svaki piksel vredi 1.000 dinara, a svaka kupovina postaje deo jednog velikog zajedničkog srca.",
+    "p3": "Cilj nam je da ga do kraja decembra ispunimo i zajedno prikupimo sredstva za Dečiju kliniku u Kragujevcu i Prihvatilište za decu u Kragujevcu.",
+    "p4": "Ne mora jedna osoba da uradi mnogo. Dovoljno je da nas mnogo uradi po malo.",
+    "cta": "Izaberi svoj piksel i postani deo Srca Kragujevca."
+  },
+  "HowItWorks": {
+    "title": "Kako radi",
+    "close": "Zatvori",
+    "headline": "Tri koraka.\nJedan piksel.\nJedno dobro delo.",
+    "step1": {
+      "title": "Izaberi piksel",
+      "text": "Dodirni bilo koji slobodan piksel u srcu ili pusti da ti izaberemo nasumičan."
+    },
+    "step2": {
+      "title": "Doniraj 1.000 dinara",
+      "text": "Nastavi na sigurnu stranicu za plaćanje i plati karticom."
+    },
+    "step3": {
+      "title": "Otkrij deo slike",
+      "text": "Tvoj piksel dobija boju konačne slike, a ti možeš da ga podeliš na Instagram storiju."
+    },
+    "note": "Plaćanje karticom obrađuje RaiAccept / Raiffeisen banka. Ne čuvamo podatke o tvojoj kartici.",
+    "cta": "Izaberi svoj piksel."
+  },
+  "Footer": {
+    "disclaimer": "Ovo je demo koncept humanitarne platforme. Sva imena, iznosi i donatori su ilustrativni. Stvarna plaćanja i čuvanje ličnih podataka nisu omogućeni.",
+    "copyright": "© {year} Srce Kragujevca. Sva prava zadržana."
+  }
+}

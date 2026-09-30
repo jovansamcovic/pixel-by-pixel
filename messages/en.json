@@ -1,0 +1,101 @@
+{
+  "Header": {
+    "demoConcept": "Interactive demo concept",
+    "paymentsDisabled": "Payments are not active",
+    "menuAriaLabel": "Open menu",
+    "languageSwitchAriaLabel": "Choose language",
+    "languages": {
+      "sr": "Serbian",
+      "en": "English"
+    }
+  },
+  "Countdown": {
+    "ariaLabel": "Time left until the end of the campaign"
+  },
+  "CampaignWidget": {
+    "priceLine": "1 PIXEL = {price}",
+    "headline": {
+      "line1": "Buy a pixel.",
+      "line2": "A brighter",
+      "line3": "tomorrow."
+    },
+    "description": "Choose a pixel in the heart and turn it into a donation for children in Kragujevac.",
+    "cta": "Buy this pixel"
+  },
+  "PixelSelector": {
+    "zoomHint": "Pinch or use + / − to zoom",
+    "randomSelect": "Random pixel",
+    "randomAriaLabel": "Pick a random available pixel",
+    "controls": {
+      "reset": "Reset",
+      "resetAriaLabel": "Reset zoom",
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out"
+    }
+  },
+  "PixelHeart": {
+    "ariaLabel": "Pixel heart of Kragujevac",
+    "donors": {
+      "mina": "Mina P.",
+      "vukAndTara": "Vuk and Tara",
+      "ilicFamily": "The Ilić family",
+      "luka": "Luka M.",
+      "anaAndOgnjen": "Ana and Ognjen",
+      "anonymous": "Anonymous"
+    },
+    "soldAriaLabel": "Pixel {pixel}, already taken by {donor}",
+    "availableAriaLabel": "Pixel {pixel}, available. Select it to donate.",
+    "soldTitle": "Donated by {donor}",
+    "availableTitle": "Pixel {pixel}"
+  },
+  "DonationForm": {
+    "defaults": {
+      "anonymousDonor": "Anonymous",
+      "message": "Together we make a brighter tomorrow."
+    },
+    "form": {
+      "eyebrow": "Your pixel",
+      "selectedPixel": "#{pixel}",
+      "redirectNotice": "You'll be redirected to a secure payment page (RaiAccept / Raiffeisen Bank). After payment, we'll bring you back to the site.",
+      "submit": "Continue to payment"
+    }
+  },
+  "BottomMenu": {
+    "ariaLabel": "Main navigation",
+    "mission": "Mission",
+    "howItWorks": "How it works"
+  },
+  "Mission": {
+    "title": "Mission",
+    "close": "Close",
+    "headline": "One city.\nOne heart.\nThousands of\nsmall acts.",
+    "p1": "From December 1 to 31, we fill the Heart of Kragujevac together, pixel by pixel.",
+    "p2": "Each pixel is worth 1,000 dinars, and every purchase becomes a part of one big shared heart.",
+    "p3": "Our goal is to fill it by the end of December and raise funds for the Children's Clinic in Kragujevac and the Children's Shelter in Kragujevac.",
+    "p4": "One person doesn't have to do a lot. It's enough that many of us do a little.",
+    "cta": "Choose your pixel and become part of the Heart of Kragujevac."
+  },
+  "HowItWorks": {
+    "title": "How it works",
+    "close": "Close",
+    "headline": "Three steps.\nOne pixel.\nOne good deed.",
+    "step1": {
+      "title": "Pick a pixel",
+      "text": "Tap any free pixel in the heart, or let us pick a random one for you."
+    },
+    "step2": {
+      "title": "Donate 1,000 RSD",
+      "text": "Continue to a secure payment page and pay by card."
+    },
+    "step3": {
+      "title": "Reveal the artwork",
+      "text": "Your pixel takes the color of the final image, and you can share it as an Instagram story."
+    },
+    "note": "Card payments are processed by RaiAccept / Raiffeisen Bank. We never store your card details.",
+    "cta": "Choose your pixel."
+  },
+  "Footer": {
+    "disclaimer": "This is a demo concept for a charity platform. All names, amounts and donors are illustrative. Real payments and personal data storage are not enabled.",
+    "copyright": "© {year} Srce Kragujevca. All rights reserved."
+  }
+}
