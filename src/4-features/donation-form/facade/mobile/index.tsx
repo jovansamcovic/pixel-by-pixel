@@ -1,7 +1,9 @@
 "use client";
 
-import { Sheet } from "@/src/6-shared/ui/bottom-sheet/BottomSheet";
 import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
+
+import { Sheet } from "@/src/6-shared/ui/bottom-sheet/BottomSheet";
 
 export type DonationDialogProps = {
   children: ReactNode;
@@ -12,17 +14,17 @@ export function MobileDonationDialog({
   children,
   onClose,
 }: DonationDialogProps) {
+  const t = useTranslations("DonationForm");
+
   return (
     <Sheet
+      open
       onClose={onClose}
-      closeLabel="Close"
-      open={false}
-      title={""}
-      icon={undefined}
+      title={t("sheet.title")}
+      closeLabel={t("sheet.close")}
+      icon={null}
     >
-      <div className="px-5 pb-[max(24px,env(safe-area-inset-bottom))]">
-        {children}
-      </div>
+      {children}
     </Sheet>
   );
 }
