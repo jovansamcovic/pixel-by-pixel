@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import {
   HEART_COLUMNS,
   HEART_RENDER_ROWS,
+  HEART_PIXELS,
   PixelHeart,
   getPixelTargetColor,
 } from "@/src/5-entities/heart-pixel/PixelHeart";
@@ -43,6 +44,12 @@ const PAN_OVERSCROLL = 48;
 const DRAG_THRESHOLD = 6;
 const SELECTION_BLOCK_DURATION = 250;
 const MINIMAP_WIDTH = 72;
+
+/** Pozicija piksela u mreži srca; broj piksela = id + 1 */
+function getPixelGridPosition(pixelId: number): Point | null {
+  const pixel = HEART_PIXELS[pixelId - 1];
+  return pixel ? { x: pixel.col, y: pixel.row } : null;
+}
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
@@ -177,6 +184,8 @@ export function PixelPickerOverlay({
     null,
   );
   const blockSelectionUntil = useRef(0);
+  // Posle nasumičnog izbora pomeri pogled na novi piksel
+  const centerOnNextSelection = useRef(false);
 
   // Srce staje celo u ekran kad je zum 100%
   const baseWidth =
@@ -436,6 +445,36 @@ export function PixelPickerOverlay({
     onSelect(pixelId);
   };
 
+  const handleRandomSelect = () => {
+    centerOnNextSelection.current = true;
+    onRandomSelect();
+  };
+
+  // Kad je srce zumirano, nasumično izabrani piksel dolazi u centar ekrana
+  useEffect(() => {
+    if (!centerOnNextSelection.current || selectedPixel === null) return;
+    centerOnNextSelection.current = false;
+
+    const current = viewRef.current;
+    if (current.scale <= MIN_SCALE) return;
+
+    const position = getPixelGridPosition(selectedPixel);
+    if (!position) return;
+
+    const { baseWidth, baseHeight } = metrics.current;
+    const width = baseWidth * current.scale;
+    const height = baseHeight * current.scale;
+
+    setSmooth(true);
+    setView({
+      scale: current.scale,
+      pan: {
+        x: -((position.x + 0.5) / HEART_COLUMNS - 0.5) * width,
+        y: -((position.y + 0.5) / HEART_RENDER_ROWS - 0.5) * height,
+      },
+    });
+  }, [selectedPixel, setView]);
+
   const zoomWithButton = (factor: number) => {
     setSmooth(true);
     zoomAt(factor);
@@ -511,7 +550,7 @@ export function PixelPickerOverlay({
             className={[
               "relative shrink-0",
               smooth
-                ? "transition-[width,transform] duration-150 ease-out"
+                ? "transition-[width,transform] duration-300 ease-out"
                 : "transition-none",
             ].join(" ")}
             style={{
@@ -576,6 +615,7 @@ export function PixelPickerOverlay({
               <PixelHeart
                 selectedPixel={selectedPixel}
                 purchasedPixels={purchasedPixels}
+                showSelectionMarker={false}
                 className="!max-w-none"
               />
               <div
@@ -630,7 +670,7 @@ export function PixelPickerOverlay({
         <div className="flex gap-2">
           <button
             type="button"
-            onClick={onRandomSelect}
+            onClick={handleRandomSelect}
             aria-label={t("randomAriaLabel")}
             style={pixelClip}
             className="group w-[68px] shrink-0 bg-[#0D2734] p-[3px] transition active:translate-y-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52336]"

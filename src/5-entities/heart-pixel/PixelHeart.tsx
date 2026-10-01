@@ -230,6 +230,8 @@ const getAvailablePixelColor = (targetColor: string) => {
 
 type PixelHeartProps = {
   highlightedPixel?: number;
+  /** Veliki marker oko izabranog piksela (isključi za mini mapu) */
+  showSelectionMarker?: boolean;
   purchasedPixels?: Record<number, string>;
   selectedPixel?: number | null;
   interactive?: boolean;
@@ -242,8 +244,55 @@ type PixelStyle = CSSProperties & {
   "--pixel-row": number;
 };
 
+/**
+ * Marker oko izabranog piksela. Jedan piksel je na telefonu širok ~3px,
+ * pa sam okvir piksela nije dovoljan: marker je uvek najmanje 28px,
+ * ima uglove (beli + tamni potez, vidljivi na svakoj boji) i puls.
+ */
+function SelectionMarker({ pixelNumber }: { pixelNumber: number }) {
+  const pixel = HEART_PIXELS[pixelNumber - 1];
+  if (!pixel) return null;
+
+  const cell = 100 / HEART_COLUMNS;
+
+  return (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute z-40 -translate-x-1/2 -translate-y-1/2"
+      style={{
+        left: `${((pixel.col + 0.5) / HEART_COLUMNS) * 100}%`,
+        top: `${((pixel.row + 0.5) / HEART_ROWS) * 100}%`,
+        width: `max(28px, calc(${cell}% + 12px))`,
+        aspectRatio: "1",
+      }}
+    >
+      <span className="absolute inset-[3px] border-2 border-[#E52336] motion-safe:animate-ping" />
+      <svg
+        viewBox="0 0 12 12"
+        shapeRendering="crispEdges"
+        className="absolute inset-0 size-full overflow-visible"
+        fill="none"
+      >
+        <path
+          d="M0 4V0h4M8 0h4v4M12 8v4H8M4 12H0V8"
+          stroke="#FFFFFF"
+          strokeWidth={5}
+          vectorEffect="non-scaling-stroke"
+        />
+        <path
+          d="M0 4V0h4M8 0h4v4M12 8v4H8M4 12H0V8"
+          stroke="#102F3B"
+          strokeWidth={2.5}
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+    </span>
+  );
+}
+
 export function PixelHeart({
   highlightedPixel,
+  showSelectionMarker = true,
   purchasedPixels = {},
   selectedPixel = null,
   interactive = false,
@@ -304,7 +353,7 @@ export function PixelHeart({
                 style={{
                   ...pixelStyle,
                   backgroundColor:
-                    sold || highlighted
+                    sold || selected || highlighted
                       ? pixel.targetColor
                       : getAvailablePixelColor(pixel.targetColor),
                 }}
@@ -375,6 +424,10 @@ export function PixelHeart({
           );
         })}
       </div>
+
+      {showSelectionMarker && selectedPixel !== null && (
+        <SelectionMarker pixelNumber={selectedPixel} />
+      )}
     </div>
   );
 }
