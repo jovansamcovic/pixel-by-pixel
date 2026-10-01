@@ -36,7 +36,17 @@
       "reset": "Reset",
       "resetAriaLabel": "Reset zoom",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "open": "Choose a pixel",
+      "previewAriaLabel": "Open the heart to choose a pixel",
+      "picker": {
+        "title": "Choose a pixel",
+        "close": "Close",
+        "hint": "Pinch, scroll or use + / − to zoom",
+        "selected": "Selected pixel #{id}",
+        "empty": "Tap a pixel in the heart",
+        "buy": "Buy this pixel"
+      }
     }
   },
   "PixelHeart": {

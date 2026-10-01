@@ -59,7 +59,7 @@ export function HowItWorks({ open, onClose }: HowItWorksProps) {
       <div className="mx-auto mt-6 w-full max-w-[300px] border-[3px] border-[#0D2734] bg-[#FBF4EA] shadow-[6px_6px_0_#0D2734] sm:max-w-[340px]">
         <Image
           src="/uputstvo.gif"
-          alt={t("gifAlt")}
+          alt={'help'}
           width={540}
           height={960}
           unoptimized

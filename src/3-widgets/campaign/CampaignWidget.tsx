@@ -1,10 +1,8 @@
 "use client";
 
 import {
-  type CSSProperties,
   type FormEvent,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { useLocale, useTranslations } from "next-intl";
@@ -69,18 +67,6 @@ function PixelHeartIcon({ className }: { className?: string }) {
   );
 }
 
-/* Pixel dugme sa "odsečenim" uglovima */
-const NOTCH = "6px";
-const pixelClip: CSSProperties = {
-  clipPath: `polygon(
-    0 ${NOTCH}, ${NOTCH} ${NOTCH}, ${NOTCH} 0,
-    calc(100% - ${NOTCH}) 0, calc(100% - ${NOTCH}) ${NOTCH}, 100% ${NOTCH},
-    100% calc(100% - ${NOTCH}), calc(100% - ${NOTCH}) calc(100% - ${NOTCH}),
-    calc(100% - ${NOTCH}) 100%, ${NOTCH} 100%, ${NOTCH} calc(100% - ${NOTCH}),
-    0 calc(100% - ${NOTCH})
-  )`,
-};
-
 export function CampaignWidget({ isMobile }: CampaignWidgetProps) {
   const t = useTranslations("CampaignWidget");
   const donationT = useTranslations("DonationForm");
@@ -113,32 +99,19 @@ export function CampaignWidget({ isMobile }: CampaignWidgetProps) {
     maximumFractionDigits: 0,
   }).format(PIXEL_PRICE);
 
-  const hasSelection = selectedPixel !== null;
-
   const isDonationDialogOpen =
     (checkoutOpen && selectedPixel !== null) || successPixel !== null;
 
-  const ctaRef = useRef<HTMLButtonElement>(null);
-
-  // Glatko skroluje do dugmeta za kupovinu, samo ako nije već vidljivo
-  const scrollToCta = () => {
-    // Čeka da React primeni novo stanje pre skrola
-    requestAnimationFrame(() => {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-
-      ctaRef.current?.scrollIntoView({
-        behavior: prefersReducedMotion ? "auto" : "smooth",
-        block: "nearest",
-      });
-    });
-  };
-
+  // Biranje se dešava u režimu preko celog ekrana, pa ovde nema skrola
   const choosePixel = (pixelId: number) => {
     setSelectedPixel(pixelId);
     setSuccessPixel(null);
-    scrollToCta();
+  };
+
+  // "Kupi" iz režima biranja vodi pravo na formu za donaciju
+  const openCheckout = () => {
+    if (selectedPixel === null) return;
+    setCheckoutOpen(true);
   };
 
   const chooseRandomPixel = () => {
@@ -200,11 +173,6 @@ export function CampaignWidget({ isMobile }: CampaignWidgetProps) {
     setCheckoutOpen(false);
   };
 
-  const hideMessage = () => {
-    setMessage("");
-    setShowMessage(false);
-  };
-
   return (
     <section
       id="srce"
@@ -244,46 +212,12 @@ export function CampaignWidget({ isMobile }: CampaignWidgetProps) {
           <PixelSelector
             selectedPixel={selectedPixel}
             purchasedPixels={purchasedPixels}
+            formattedPrice={formattedPrice}
             onSelect={choosePixel}
             onRandomSelect={chooseRandomPixel}
+            onCheckout={openCheckout}
           />
         </div>
-
-        {/* CTA: vidljivo tek kad je piksel izabran, ali zauzima mesto da stranica ne skače */}
-        <button
-          ref={ctaRef}
-          type="button"
-          disabled={!hasSelection}
-          tabIndex={hasSelection ? 0 : -1}
-          aria-hidden={!hasSelection}
-          onClick={() => setCheckoutOpen(true)}
-          style={pixelClip}
-          className={[
-            "group mt-4 block w-full bg-[#0D2734] p-[3px]",
-            // Razmak da dugme ne završi ispod fiksnog bottom menija
-            "scroll-mb-[calc(96px+env(safe-area-inset-bottom))] md:scroll-mb-6",
-            "transition duration-200 active:translate-y-[2px]",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52336] focus-visible:ring-offset-2",
-            hasSelection ? "opacity-100" : "pointer-events-none opacity-0",
-          ].join(" ")}
-        >
-          <span
-            style={pixelClip}
-            className={[
-              "flex min-h-[64px] flex-col items-center justify-center",
-              "bg-[#E8172B] px-5 uppercase text-white",
-              "shadow-[inset_0_4px_0_#FF5564,inset_0_-5px_0_#B5111F]",
-              "transition group-hover:bg-[#F0202F]",
-            ].join(" ")}
-          >
-            <span className="text-[22px] leading-none tracking-[0.03em]">
-              {t("cta")}
-            </span>
-            <span className="mt-1.5 text-[12px] leading-none">
-              — {formattedPrice} —
-            </span>
-          </span>
-        </button>
       </div>
 
       {isDonationDialogOpen && (
