@@ -1,8 +1,7 @@
 "use client";
 
+import { Modal } from "@/src/6-shared/ui/modal";
 import type { ReactNode } from "react";
-
-import { Modal } from "@/src/6-shared/ui/modal/Modal";
 
 export type DonationDialogProps = {
   children: ReactNode;

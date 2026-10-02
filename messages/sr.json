@@ -38,16 +38,16 @@
       "zoomIn": "Uvećaj",
       "zoomOut": "Umanji"
     },
-     "open": "Izaberi piksel",
-      "previewAriaLabel": "Otvori srce za biranje piksela",
-      "picker": {
-        "title": "Izaberi piksel",
-        "close": "Zatvori",
-        "hint": "Zumiraj prstima, točkićem ili sa + / −",
-        "selected": "Izabran piksel #{id}",
-        "empty": "Dodirni piksel u srcu",
-        "buy": "Kupi ovaj piksel"
-      }
+    "open": "Izaberi piksel",
+    "previewAriaLabel": "Otvori srce za biranje piksela",
+    "picker": {
+      "title": "Izaberi piksel",
+      "close": "Zatvori",
+      "hint": "Zumiraj prstima, točkićem ili sa + / −",
+      "selected": "Izabran piksel #{id}",
+      "empty": "Dodirni piksel u srcu",
+      "buy": "Kupi ovaj piksel"
+    }
   },
   "PixelHeart": {
     "ariaLabel": "Piksel srce Kragujevca",
@@ -176,5 +176,8 @@
     "errors": {
       "imageGeneration": "Generisanje slike nije uspelo."
     }
+  },
+  "DonationBadge": {
+    "label": "Moj piksel dobrote"
   }
 }

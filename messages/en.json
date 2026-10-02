@@ -176,5 +176,8 @@
     "errors": {
       "imageGeneration": "Image generation failed."
     }
+  },
+  "DonationBadge": {
+    "label": "My pixel of kindness"
   }
 }

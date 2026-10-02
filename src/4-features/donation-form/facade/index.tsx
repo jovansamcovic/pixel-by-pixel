@@ -1,6 +1,6 @@
 import { DesktopDonationDialog } from "./desktop";
 import { MobileDonationDialog } from "./mobile";
-import { DeviceClientComposite } from "@/src/6-shared/ui/device-composite/DeviceClientComposite";
+import { DeviceClientComposite } from "@/src/6-shared/ui/device-composite/device-client-composite";
 
 export type DonationDialogProps = {
   children: React.ReactNode;

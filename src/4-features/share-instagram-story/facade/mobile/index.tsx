@@ -5,15 +5,12 @@ import { useTranslations } from "next-intl";
 
 import { Sheet } from "@/src/6-shared/ui/bottom-sheet";
 
-export type DonationDialogProps = {
+export type Props = {
   children: ReactNode;
   onClose: () => void;
 };
 
-export function MobileDonationDialog({
-  children,
-  onClose,
-}: DonationDialogProps) {
+export function MobileShareInstagramStory({ children, onClose }: Props) {
   const t = useTranslations("DonationForm");
 
   return (
@@ -21,7 +18,7 @@ export function MobileDonationDialog({
       open
       onClose={onClose}
       title={t("sheet.title")}
-      closeLabel={t("sheet.close")}
+      closeLabel={t("modal.closeLabel")}
       icon={null}
     >
       {children}
