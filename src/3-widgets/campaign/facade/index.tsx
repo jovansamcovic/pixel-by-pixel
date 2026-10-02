@@ -19,6 +19,7 @@ import { ImageBackground } from "../ui/image-background";
 import { PixelSelector } from "@/src/4-features/select-pixel/facade";
 import { DonationRecord } from "@/src/5-entities/donation";
 import { ShareInstagramStory } from "@/src/4-features/share-instagram-story/facade";
+import { StoryContent } from "@/src/4-features/share-instagram-story/ui/story-content";
 
 type CampaignWidgetProps = {
   isMobile: boolean;
@@ -138,9 +139,10 @@ export function CampaignWidget({ isMobile }: CampaignWidgetProps) {
       {step === "story" && lastPurchase && (
         <ShareInstagramStory
           isMobile={isMobile}
-          donation={lastPurchase}
           onClose={() => setStep("success")}
-        />
+        >
+          <StoryContent donation={lastPurchase} />
+        </ShareInstagramStory>
       )}
     </section>
   );

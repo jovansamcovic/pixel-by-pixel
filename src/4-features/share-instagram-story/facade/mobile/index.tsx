@@ -11,7 +11,7 @@ export type Props = {
 };
 
 export function MobileShareInstagramStory({ children, onClose }: Props) {
-  const t = useTranslations("DonationForm");
+  const t = useTranslations("InstagramStoryDialog");
 
   return (
     <Sheet
