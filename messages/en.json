@@ -68,7 +68,8 @@
       "hint": "Pinch, scroll or use + / − to zoom",
       "selected": "Selected pixel #{id}",
       "empty": "Tap a pixel in the heart",
-      "buy": "Buy this pixel"
+      "buy": "Buy this pixel",
+      "back": "Back"
     }
   },
   "PixelHeart": {

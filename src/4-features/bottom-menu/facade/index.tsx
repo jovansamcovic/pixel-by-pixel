@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useTranslations } from "next-intl";
@@ -11,17 +12,15 @@ const HEART_ICON = [
   "0001000",
 ];
 
+
 const INFO_ICON = [
-  "001111100",
-  "011000110",
-  "110010011",
-  "110000011",
-  "110010011",
-  "110010011",
-  "110010011",
-  "011000110",
-  "001111100",
+  "00100",
+  "00000",
+  "01100",
+  "00100",
+  "01110",
 ];
+
 
 function PixelIcon({
   rows,
@@ -39,13 +38,17 @@ function PixelIcon({
       fill="currentColor"
     >
       {rows.flatMap((row, y) =>
-        row
-          .split("")
-          .map((cell, x) =>
-            cell === "1" ? (
-              <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" />
-            ) : null,
-          ),
+        row.split("").map((cell, x) =>
+          cell === "1" ? (
+            <rect
+              key={`${x}-${y}`}
+              x={x}
+              y={y}
+              width="1"
+              height="1"
+            />
+          ) : null,
+        ),
       )}
     </svg>
   );
@@ -63,7 +66,12 @@ const ITEMS = [
   { id: "howItWorks", key: "howItWorks", icon: INFO_ICON },
 ] as const;
 
-export function BottomMenu({ openSheet, onOpen }: BottomMenuProps) {
+
+
+export function BottomMenu({
+  openSheet,
+  onOpen,
+}: BottomMenuProps) {
   const t = useTranslations("BottomMenu");
 
   return (
@@ -71,32 +79,59 @@ export function BottomMenu({ openSheet, onOpen }: BottomMenuProps) {
       aria-label={t("ariaLabel")}
       className={[
         "fixed inset-x-0 bottom-0 z-40 md:hidden",
-        "rounded-t-[24px] bg-[#FFF6EB]/90 backdrop-blur-md",
-        "border border-b-0 border-[#0D2734]/10",
-        "shadow-[0_-6px_20px_rgba(13,39,52,0.06)]",
-        "pb-[env(safe-area-inset-bottom)]",
+        "bg-[#FFF6EB]",
+        "px-4 pt-3",
+        "pb-[calc(12px+env(safe-area-inset-bottom))]",
+        "shadow-[0_-6px_20px_rgba(13,39,52,0.035)]",
       ].join(" ")}
     >
-      <ul className="mx-auto flex max-w-[720px] items-stretch">
+      <ul className="mx-auto flex max-w-[420px] gap-2">
         {ITEMS.map((item) => {
           const isActive = openSheet === item.id;
 
           return (
-            <li key={item.id} className="flex-1">
+            <li key={item.id} className="min-w-0 flex-1">
               <button
                 type="button"
                 onClick={() => onOpen(item.id)}
                 aria-haspopup="dialog"
                 aria-expanded={isActive}
                 className={[
-                  "flex w-full flex-col items-center justify-center gap-1.5 px-3 pb-3 pt-3.5",
-                  "text-[11px] uppercase leading-none tracking-[0.04em] transition-colors",
-                  "active:translate-y-[1px]",
-                  isActive ? "text-[#E52336]" : "text-[#0D2734]/55",
+                  "flex h-11 w-full items-center justify-center gap-2",
+                  "px-2 text-[10px] uppercase tracking-[0.04em]",
+                  "transition-colors duration-150",
+                  "focus-visible:outline-2",
+                  "focus-visible:outline-offset-2",
+                  "focus-visible:outline-[#E52336]",
+                  isActive
+                    ? "bg-[#F6DDDA] text-[#B84B55]"
+                    : "bg-[#F3E8DC] text-[#66777B]",
                 ].join(" ")}
+                style={{
+                  clipPath: `polygon(
+                    0 4px,
+                    4px 4px,
+                    4px 0,
+                    calc(100% - 4px) 0,
+                    calc(100% - 4px) 4px,
+                    100% 4px,
+                    100% calc(100% - 4px),
+                    calc(100% - 4px) calc(100% - 4px),
+                    calc(100% - 4px) 100%,
+                    4px 100%,
+                    4px calc(100% - 4px),
+                    0 calc(100% - 4px)
+                  )`,
+                }}
               >
-                <PixelIcon rows={item.icon} className="h-5 w-auto" />
-                {t(item.key)}
+                <PixelIcon
+                  rows={item.icon}
+                  className="h-4 w-auto shrink-0"
+                />
+
+                <span className="whitespace-nowrap text-[#0D2734]">
+                  {t(item.key)}
+                </span>
               </button>
             </li>
           );
@@ -105,3 +140,5 @@ export function BottomMenu({ openSheet, onOpen }: BottomMenuProps) {
     </nav>
   );
 }
+
+

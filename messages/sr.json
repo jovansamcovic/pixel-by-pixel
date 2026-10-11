@@ -68,7 +68,8 @@
       "hint": "Zumiraj prstima, točkićem ili sa + / −",
       "selected": "Izabran piksel #{id}",
       "empty": "Dodirni piksel u srcu",
-      "buy": "Kupi ovaj piksel"
+      "buy": "Kupi ovaj piksel",
+      "back": "Nazad"
     }
   },
   "PixelHeart": {
@@ -194,5 +195,6 @@
   },
   "DonationBadge": {
     "label": "Moj piksel dobrote"
-  }
+  },
+  "back": "Nazad"
 }

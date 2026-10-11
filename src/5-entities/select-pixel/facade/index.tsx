@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -10,14 +11,16 @@ import {
   HEART_RENDER_ROWS,
   PixelHeart,
 } from "@/src/5-entities/heart-pixel";
-import { CloseIcon } from "@/src/6-shared/icons/close-icon-pixel";
+
+import type { SoldPixels } from "@/src/5-entities/heart-pixel/types";
+
 import { useModalBehavior } from "../hooks/useModalBehavior";
 import { usePanZoom } from "../hooks/usePanZoom";
-import { toolButton } from "../styles";
+
+import { PickerHeader } from "../ui/picker-header";
 import { ZoomControls } from "../ui/zoom-controls";
 import { PickerMinimap } from "../ui/picker-minimap";
 import { PickerFooter } from "../ui/picker-footer";
-import { SoldPixels } from "@/src/5-entities/heart-pixel/types";
 
 type PixelPickerOverlayProps = {
   selectedPixel: number | null;
@@ -29,10 +32,12 @@ type PixelPickerOverlayProps = {
   onClose: () => void;
 };
 
-/** Pozicija piksela u mreži srca; broj piksela = id + 1 */
 function getPixelCell(pixelNumber: number) {
   const pixel = HEART_PIXELS[pixelNumber - 1];
-  return pixel ? { x: pixel.col, y: pixel.row } : null;
+
+  return pixel
+    ? { x: pixel.col, y: pixel.row }
+    : null;
 }
 
 export function PixelPickerOverlay({
@@ -45,22 +50,35 @@ export function PixelPickerOverlay({
   onClose,
 }: PixelPickerOverlayProps) {
   const t = useTranslations("PixelSelector");
+
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
   useModalBehavior(onClose, closeButtonRef);
 
-  const panZoom = usePanZoom(HEART_COLUMNS, HEART_RENDER_ROWS);
+  const panZoom = usePanZoom(
+    HEART_COLUMNS,
+    HEART_RENDER_ROWS
+  );
+
   const { view, isZoomed, centerOnCell } = panZoom;
 
-  // Posle nasumičnog izbora zumirani pogled dolazi na novi piksel
   const centerOnNextSelection = useRef(false);
 
   useEffect(() => {
-    if (!centerOnNextSelection.current || selectedPixel === null) return;
+    if (
+      !centerOnNextSelection.current ||
+      selectedPixel === null
+    ) {
+      return;
+    }
+
     centerOnNextSelection.current = false;
 
     const cell = getPixelCell(selectedPixel);
-    if (cell) centerOnCell(cell);
+
+    if (cell) {
+      centerOnCell(cell);
+    }
   }, [selectedPixel, centerOnCell]);
 
   const handleRandomSelect = () => {
@@ -69,7 +87,9 @@ export function PixelPickerOverlay({
   };
 
   const handlePixelSelect = (pixelNumber: number) => {
-    if (!panZoom.isSelectionBlocked()) onSelect(pixelNumber);
+    if (!panZoom.isSelectionBlocked()) {
+      onSelect(pixelNumber);
+    }
   };
 
   const contentWidth = panZoom.baseWidth * view.scale;
@@ -86,31 +106,20 @@ export function PixelPickerOverlay({
         paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
-      <header className="flex h-14 shrink-0 items-center justify-between gap-3 border-b border-[#0D2734]/15 px-3">
-        <button
-          ref={closeButtonRef}
-          type="button"
-          onClick={onClose}
-          aria-label={t("picker.close")}
-          className={toolButton}
-        >
-          <CloseIcon />
-        </button>
+      <PickerHeader
+        onClose={onClose}
+        closeButtonRef={closeButtonRef}
+        scale={view.scale}
+      />
 
-        <p className="text-[13px] uppercase tracking-[0.04em]">{t("picker.title")}</p>
-
-        <span className="w-9 text-right text-[11px] tabular-nums text-[#0D2734]/60">
-          {Math.round(view.scale * 100)}%
-        </span>
-      </header>
-
-      {/* Srce: svi gestovi ovde pripadaju srcu, ne strani */}
       <div
         ref={panZoom.viewportRef}
         {...panZoom.gestureHandlers}
         className={[
           "relative flex min-h-0 flex-1 items-center justify-center overflow-hidden",
-          isZoomed ? "cursor-grab active:cursor-grabbing" : "",
+          isZoomed
+            ? "cursor-grab active:cursor-grabbing"
+            : "",
         ].join(" ")}
       >
         {panZoom.baseWidth > 0 && (
@@ -149,7 +158,10 @@ export function PixelPickerOverlay({
           <PickerMinimap
             view={view}
             viewport={panZoom.size}
-            content={{ width: contentWidth, height: contentHeight }}
+            content={{
+              width: contentWidth,
+              height: contentHeight,
+            }}
             selectedPixel={selectedPixel}
             soldPixels={soldPixels}
           />
@@ -167,6 +179,6 @@ export function PixelPickerOverlay({
         onCheckout={onCheckout}
       />
     </div>,
-    document.body,
+    document.body
   );
 }
