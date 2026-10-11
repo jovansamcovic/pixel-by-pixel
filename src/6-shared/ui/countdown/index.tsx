@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -86,11 +85,11 @@ export function Countdown() {
           )}
 
           <div className="flex items-baseline gap-1">
-            <span className="text-[16px] leading-none tabular-nums text-[#0D2734] sm:text-[18px]">
+            <span className="text-[22px] leading-none tabular-nums text-[#0D2734] sm:text-[20px]">
               {left ? pad(left[unit]) : "--"}
             </span>
 
-            <span className="text-[10px] uppercase leading-none tracking-[0.03em] text-[#0D2734]/60 sm:text-[11px]">
+            <span className="text-[14px] uppercase leading-none tracking-[0.03em] text-[#0D2734]/60 sm:text-[12px]">
               {t(`units.${unit}`)}
             </span>
           </div>

@@ -1,4 +1,3 @@
-
 import type { CSSProperties } from "react";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -19,6 +18,19 @@ const languagePixelClip: CSSProperties = {
   )`,
 };
 
+const activeTextOutline: CSSProperties = {
+  textShadow: `
+    -1px -1px 0 #000,
+     0   -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  0   0 #000,
+     1px  0   0 #000,
+    -1px  1px 0 #000,
+     0    1px 0 #000,
+     1px  1px 0 #000
+  `,
+};
+
 export default function Header() {
   const t = useTranslations("Header");
   const locale = useLocale();
@@ -26,7 +38,7 @@ export default function Header() {
   const langClass = (active: boolean) =>
     [
       "grid h-full min-w-10 place-items-center px-2",
-      "text-[12px] font-bold tracking-[0.04em]",
+      "text-[14px] font-bold tracking-[0.04em]",
       "transition-colors duration-150",
       active
         ? [
@@ -39,6 +51,9 @@ export default function Header() {
             "hover:bg-[#FFFBF5]",
           ].join(" "),
     ].join(" ");
+
+  const langStyle = (active: boolean) =>
+    active ? activeTextOutline : undefined;
 
   return (
     <>
@@ -75,6 +90,7 @@ export default function Header() {
                 aria-label="Srpski"
                 aria-current={locale === "sr" ? "page" : undefined}
                 className={langClass(locale === "sr")}
+                style={langStyle(locale === "sr")}
               >
                 SR
               </a>
@@ -87,6 +103,7 @@ export default function Header() {
                   langClass(locale === "en"),
                   "border-l-[2px] border-[#0D2734]",
                 ].join(" ")}
+                style={langStyle(locale === "en")}
               >
                 EN
               </a>

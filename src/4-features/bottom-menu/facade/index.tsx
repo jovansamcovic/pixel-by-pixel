@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useTranslations } from "next-intl";
@@ -12,15 +11,7 @@ const HEART_ICON = [
   "0001000",
 ];
 
-
-const INFO_ICON = [
-  "00100",
-  "00000",
-  "01100",
-  "00100",
-  "01110",
-];
-
+const INFO_ICON = ["00100", "00000", "01100", "00100", "01110"];
 
 function PixelIcon({
   rows,
@@ -38,17 +29,13 @@ function PixelIcon({
       fill="currentColor"
     >
       {rows.flatMap((row, y) =>
-        row.split("").map((cell, x) =>
-          cell === "1" ? (
-            <rect
-              key={`${x}-${y}`}
-              x={x}
-              y={y}
-              width="1"
-              height="1"
-            />
-          ) : null,
-        ),
+        row
+          .split("")
+          .map((cell, x) =>
+            cell === "1" ? (
+              <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" />
+            ) : null,
+          ),
       )}
     </svg>
   );
@@ -66,12 +53,7 @@ const ITEMS = [
   { id: "howItWorks", key: "howItWorks", icon: INFO_ICON },
 ] as const;
 
-
-
-export function BottomMenu({
-  openSheet,
-  onOpen,
-}: BottomMenuProps) {
+export function BottomMenu({ openSheet, onOpen }: BottomMenuProps) {
   const t = useTranslations("BottomMenu");
 
   return (
@@ -98,7 +80,7 @@ export function BottomMenu({
                 aria-expanded={isActive}
                 className={[
                   "flex h-11 w-full items-center justify-center gap-2",
-                  "px-2 text-[10px] uppercase tracking-[0.04em]",
+                  "px-2 text-[12px] uppercase tracking-[0.04em]",
                   "transition-colors duration-150",
                   "focus-visible:outline-2",
                   "focus-visible:outline-offset-2",
@@ -126,7 +108,7 @@ export function BottomMenu({
               >
                 <PixelIcon
                   rows={item.icon}
-                  className="h-4 w-auto shrink-0"
+                  className="h-[18px] w-auto shrink-0"
                 />
 
                 <span className="whitespace-nowrap text-[#0D2734]">
@@ -140,5 +122,3 @@ export function BottomMenu({
     </nav>
   );
 }
-
-

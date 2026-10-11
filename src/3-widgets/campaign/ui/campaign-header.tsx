@@ -5,8 +5,8 @@ export const CampaignHeader = ({ formattedPrice }: { formattedPrice: string }) =
     const t = useTranslations("CampaignWidget");
     return (
         <header className="mb-5 text-left">
-            <p className="flex items-center gap-2 text-[13px] uppercase tracking-[0.04em] text-[#0D2734]">
-                <PixelHeartIcon className="size-[18px]" />
+            <p className="flex items-center gap-2 text-[16px] uppercase tracking-[0.04em] text-[#0D2734]">
+                <PixelHeartIcon className="size-[20px]" />
                 {t("priceLine", { price: formattedPrice })}
             </p>
 
