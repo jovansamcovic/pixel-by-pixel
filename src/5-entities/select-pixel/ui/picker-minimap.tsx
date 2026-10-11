@@ -1,6 +1,6 @@
 import { PixelHeart } from "@/src/5-entities/heart-pixel";
-
 import { clamp, type Size, type View } from "../helpers";
+import { SoldPixels } from "@/src/5-entities/heart-pixel/types";
 
 const MINIMAP_WIDTH = 72;
 
@@ -9,7 +9,7 @@ type PickerMinimapProps = {
   viewport: Size;
   content: Size;
   selectedPixel: number | null;
-  purchasedPixels: Record<number, string>;
+  soldPixels: SoldPixels;
 };
 
 
@@ -33,7 +33,7 @@ export function PickerMinimap({
   viewport,
   content,
   selectedPixel,
-  purchasedPixels,
+  soldPixels,
 }: PickerMinimapProps) {
   if (content.width <= 0) return null;
 
@@ -48,7 +48,7 @@ export function PickerMinimap({
       <div className="relative">
         <PixelHeart
           selectedPixel={selectedPixel}
-          purchasedPixels={purchasedPixels}
+          soldPixels={soldPixels}
           showSelectionMarker={false}
           className="!max-w-none"
         />

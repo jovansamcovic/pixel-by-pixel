@@ -1,7 +1,7 @@
 "use client";
 
-import { type FormEvent, useMemo, useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { type FormEvent, useMemo } from "react";
+import { useLocale } from "next-intl";
 
 import {
   DonationDialog,
@@ -9,90 +9,39 @@ import {
   DonationSuccess,
 } from "@/src/4-features/donation-form";
 import {
-  HEART_PIXELS,
-  PIXEL_PRICE,
   getPixelTargetColor,
-  isInitiallySold,
 } from "@/src/5-entities/heart-pixel";
-import { CampaignHeader } from "../ui/campaign-header";
-import { ImageBackground } from "../ui/image-background";
 import { PixelSelector } from "@/src/4-features/select-pixel/facade";
-import { DonationRecord } from "@/src/5-entities/donation";
 import { ShareInstagramStory } from "@/src/4-features/share-instagram-story/facade";
 import { StoryContent } from "@/src/4-features/share-instagram-story/ui/story-content";
+import { CampaignHeader } from "../ui/campaign-header";
+import { ImageBackground } from "../ui/image-background";
+import { useDonationFlow } from "../hooks/useDonationFlow";
+import { formatPrice } from "../helpers";
+import { HeartStateDto, toSoldPixels } from "@/src/5-entities/heart-pixel/types";
 
 type CampaignWidgetProps = {
   isMobile: boolean;
+  /** Stanje srca sa backenda. Za sada: MOCK_HEART_STATE iz stranice. */
+  heart: HeartStateDto;
 };
 
-type Step = "idle" | "checkout" | "success" | "story";
-
-export function CampaignWidget({ isMobile }: CampaignWidgetProps) {
-  const t = useTranslations("CampaignWidget");
+export function CampaignWidget({ isMobile, heart }: CampaignWidgetProps) {
   const locale = useLocale();
 
-  const [step, setStep] = useState<Step>("idle");
-  const [selectedPixel, setSelectedPixel] = useState<number | null>(null);
-  const [purchasedPixels, setPurchasedPixels] = useState<
-    Record<number, string>
-  >({});
-  const [lastPurchase, setLastPurchase] = useState<DonationRecord | null>(null);
+  const initialSoldPixels = useMemo(() => toSoldPixels(heart), [heart]);
+  const flow = useDonationFlow({ initialSoldPixels });
 
   const formattedPrice = useMemo(
-    () =>
-      new Intl.NumberFormat(locale === "sr" ? "sr-RS" : "en-US", {
-        style: "currency",
-        currency: "RSD",
-        maximumFractionDigits: 0,
-      }).format(PIXEL_PRICE),
-    [locale],
+    () => formatPrice(heart.price, locale),
+    [heart.price, locale],
   );
 
-  const showSuccess =
-    (step === "success" || step === "story") && lastPurchase !== null;
-  const showCheckout = step === "checkout" && selectedPixel !== null;
-
-  const choosePixel = (pixelId: number) => {
-    setSelectedPixel(pixelId);
-    setStep("idle");
-  };
-
-  const openCheckout = () => {
-    if (selectedPixel !== null) setStep("checkout");
-  };
-
-  const chooseRandomPixel = () => {
-    const available = HEART_PIXELS.filter(
-      (pixel) =>
-        !isInitiallySold(pixel.id) &&
-        purchasedPixels[pixel.id + 1] === undefined,
-    );
-    if (available.length === 0) return;
-
-    const randomPixel = available[Math.floor(Math.random() * available.length)];
-    choosePixel(randomPixel.id + 1);
-  };
-
-  const submitDonation = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (selectedPixel === null) return;
-
-    const color = getPixelTargetColor(selectedPixel);
-
-    setPurchasedPixels((current) => ({ ...current, [selectedPixel]: color }));
-    setLastPurchase({ id: selectedPixel, color });
-    setSelectedPixel(null);
-    setStep("success");
-  };
-
-  const resetDonation = () => {
-    setSelectedPixel(null);
-    setStep("idle");
-  };
-
-  const handleDonationClose = () => {
-    if (showSuccess) resetDonation();
-    else setStep("idle");
+    // Prilagodi `name` atributu polja za ime u DonationFormContent.
+    const donorName = new FormData(event.currentTarget).get("donorName");
+    flow.confirmDonation(typeof donorName === "string" ? donorName : undefined);
   };
 
   return (
@@ -107,41 +56,40 @@ export function CampaignWidget({ isMobile }: CampaignWidgetProps) {
 
         <div className="mx-auto max-w-[560px]">
           <PixelSelector
-            selectedPixel={selectedPixel}
-            purchasedPixels={purchasedPixels}
+            selectedPixel={flow.selectedPixel}
+            soldPixels={flow.soldPixels}
             formattedPrice={formattedPrice}
-            onSelect={choosePixel}
-            onRandomSelect={chooseRandomPixel}
-            onCheckout={openCheckout}
+            onSelect={flow.choosePixel}
+            onRandomSelect={flow.chooseRandomPixel}
+            onCheckout={flow.openCheckout}
           />
         </div>
       </div>
 
-      {(showCheckout || showSuccess) && (
-        <DonationDialog isMobile={isMobile} onClose={handleDonationClose}>
-          {showSuccess ? (
+      {(flow.showCheckout || flow.showSuccess) && (
+        <DonationDialog isMobile={isMobile} onClose={flow.closeDialog}>
+          {flow.showSuccess && flow.lastPurchase ? (
             <DonationSuccess
-              successPixel={lastPurchase.id}
-              onShareStory={() => setStep("story")}
-              onReset={resetDonation}
+              successPixel={flow.lastPurchase.id}
+              onShareStory={flow.openStory}
+              onReset={flow.reset}
             />
           ) : (
-            <DonationFormContent
-              selectedPixel={selectedPixel!}
-              selectedColor={getPixelTargetColor(selectedPixel!)}
-              formattedPrice={formattedPrice}
-              onSubmit={submitDonation}
-            />
+            flow.selectedPixel !== null && (
+              <DonationFormContent
+                selectedPixel={flow.selectedPixel}
+                selectedColor={getPixelTargetColor(flow.selectedPixel)}
+                formattedPrice={formattedPrice}
+                onSubmit={handleSubmit}
+              />
+            )
           )}
         </DonationDialog>
       )}
 
-      {step === "story" && lastPurchase && (
-        <ShareInstagramStory
-          isMobile={isMobile}
-          onClose={() => setStep("success")}
-        >
-          <StoryContent donation={lastPurchase} />
+      {flow.showStory && flow.lastPurchase && (
+        <ShareInstagramStory isMobile={isMobile} onClose={flow.closeStory}>
+          <StoryContent donation={flow.lastPurchase} soldPixels={flow.soldPixels} />
         </ShareInstagramStory>
       )}
     </section>

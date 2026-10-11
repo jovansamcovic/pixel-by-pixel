@@ -1,4 +1,26 @@
 {
+  "Metadata": {
+    "title": "Izaberi pixel",
+    "shareTitle": "Srce Kragujevca",
+    "description": "Humanitarna platforma za prikupljanje sredstava kupovinom piksela. Izaberi svoj piksel i postani deo zajedničke slike dobrote.",
+    "keywords": [
+      "humanitarna akcija",
+      "humanitarne donacije",
+      "donacije",
+      "kupovina piksela",
+      "piksel dobrote",
+      "izaberi pixel",
+      "pixel po pixel",
+      "Kragujevac"
+    ],
+    "openGraph": {
+      "description": "Jedan piksel. Jedan korak bliže cilju. Izaberi svoj piksel i ostavi trag u zajedničkom srcu.",
+      "imageAlt": "Srce Kragujevca — humanitarna akcija"
+    },
+    "twitter": {
+      "description": "Izaberi svoj piksel i postani deo zajedničke slike dobrote."
+    }
+  },
   "Header": {
     "demoConcept": "Interaktivni demo koncept",
     "paymentsDisabled": "Plaćanje nije aktivno",
@@ -51,14 +73,7 @@
   },
   "PixelHeart": {
     "ariaLabel": "Piksel srce Kragujevca",
-    "donors": {
-      "mina": "Mina P.",
-      "vukAndTara": "Vuk i Tara",
-      "ilicFamily": "Porodica Ilić",
-      "luka": "Luka M.",
-      "anaAndOgnjen": "Ana i Ognjen",
-      "anonymous": "Anonimno"
-    },
+    "anonymous": "Anonimno",
     "soldAriaLabel": "Piksel {pixel}, već ga je kupio/la {donor}",
     "availableAriaLabel": "Piksel {pixel}, slobodan. Izaberi ga da doniraš.",
     "soldTitle": "Donirao/la: {donor}",

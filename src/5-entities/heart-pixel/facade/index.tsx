@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 
 import { useTranslations } from "next-intl";
+import { SoldPixels } from "../types";
 
 export type HeartPixel = {
   id: number;
@@ -27,15 +28,6 @@ const PIXEL_COLORS: Record<string, string> = {
 };
 
 export const PIXEL_PALETTE = Object.values(PIXEL_COLORS);
-
-export const DONOR_NAMES = [
-  "Mina P.",
-  "Vuk i Tara",
-  "Porodica Ilić",
-  "Luka M.",
-  "Ana i Ognjen",
-  "Anonimno",
-];
 
 /**
  * High-detail 108 × 100 mapping generated directly
@@ -173,31 +165,10 @@ export const HEART_PIXELS: HeartPixel[] = (() => {
   return pixels;
 })();
 
-export const STARTING_SOLD = Math.round(
-  HEART_PIXELS.length * 0.68, // define here number of sold pixels
-);
+/** HEART_PIXELS koristi 0-based `id`; ostatak aplikacije radi sa 1-based brojem piksela. */
+export const toPixelNumber = (pixelId: number) => pixelId + 1;
 
-const hashPixel = (id: number) => {
-  let value = id + 1;
-
-  value = Math.imul(value ^ (value >>> 16), 0x45d9f3b);
-  value = Math.imul(value ^ (value >>> 16), 0x45d9f3b);
-  value = value ^ (value >>> 16);
-
-  return value >>> 0;
-};
-
-const INITIAL_SOLD_IDS = new Set(
-  HEART_PIXELS.map((pixel) => pixel.id)
-    .sort(
-      (first, second) =>
-        hashPixel(first) - hashPixel(second) || first - second,
-    )
-    .slice(0, STARTING_SOLD),
-);
-
-export const isInitiallySold = (id: number) =>
-  INITIAL_SOLD_IDS.has(id);
+const EMPTY_SOLD_PIXELS: SoldPixels = new Map();
 
 export const getPixelTargetColor = (pixelNumber: number) =>
   HEART_PIXELS[pixelNumber - 1]?.targetColor ?? PIXEL_COLORS["R"];
@@ -232,7 +203,7 @@ type PixelHeartProps = {
   highlightedPixel?: number;
   /** Veliki marker oko izabranog piksela (isključi za mini mapu) */
   showSelectionMarker?: boolean;
-  purchasedPixels?: Record<number, string>;
+  soldPixels?: SoldPixels;
   selectedPixel?: number | null;
   interactive?: boolean;
   onSelect?: (pixelId: number) => void;
@@ -293,22 +264,13 @@ function SelectionMarker({ pixelNumber }: { pixelNumber: number }) {
 export function PixelHeart({
   highlightedPixel,
   showSelectionMarker = true,
-  purchasedPixels = {},
+  soldPixels = EMPTY_SOLD_PIXELS,
   selectedPixel = null,
   interactive = false,
   onSelect,
   className = "",
 }: PixelHeartProps) {
   const t = useTranslations("PixelHeart");
-
-  const donorNames = [
-    t("donors.mina"),
-    t("donors.vukAndTara"),
-    t("donors.ilicFamily"),
-    t("donors.luka"),
-    t("donors.anaAndOgnjen"),
-    t("donors.anonymous"),
-  ];
 
   return (
     <div
@@ -327,11 +289,8 @@ export function PixelHeart({
         }}
       >
         {HEART_PIXELS.map((pixel) => {
-          const pixelNumber = pixel.id + 1;
-          const purchased = purchasedPixels[pixelNumber] !== undefined;
-          const initiallySold = isInitiallySold(pixel.id);
-
-          const sold = initiallySold || purchased;
+          const pixelNumber = toPixelNumber(pixel.id);
+          const sold = soldPixels.has(pixelNumber);
           const selected = selectedPixel === pixelNumber;
           const highlighted = highlightedPixel === pixelNumber;
 
@@ -368,8 +327,7 @@ export function PixelHeart({
             );
           }
 
-          const donor =
-            donorNames[pixel.id % donorNames.length];
+          const donor = soldPixels.get(pixelNumber) ?? t("anonymous");
 
           return (
             <button

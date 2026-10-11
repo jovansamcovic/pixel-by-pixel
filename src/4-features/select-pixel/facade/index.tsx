@@ -8,12 +8,13 @@ import { PixelHeart } from "@/src/5-entities/heart-pixel";
 import { MagnifierIcon } from "@/src/6-shared/icons/magnifier-icon-pixel";
 import { PixelPickerOverlay } from "@/src/5-entities/select-pixel/facade";
 import { pixelClip } from "@/src/5-entities/select-pixel/styles";
+import { SoldPixels } from "@/src/5-entities/heart-pixel/types";
 
 type PixelSelectorProps = {
   selectedPixel: number | null;
-  purchasedPixels: Record<number, string>;
+  soldPixels: SoldPixels;
   formattedPrice: string;
-  onSelect: (pixelId: number) => void;
+  onSelect: (pixelNumber: number) => void;
   onRandomSelect: () => void;
   onCheckout: () => void;
   onPickerClose?: () => void;
@@ -21,7 +22,7 @@ type PixelSelectorProps = {
 
 export function PixelSelector({
   selectedPixel,
-  purchasedPixels,
+  soldPixels,
   formattedPrice,
   onSelect,
   onRandomSelect,
@@ -61,10 +62,7 @@ export function PixelSelector({
         className="w-full cursor-zoom-in touch-pan-y p-2 outline-none focus-visible:ring-2 focus-visible:ring-[#E52336]"
       >
         <div className="pointer-events-none">
-          <PixelHeart
-            selectedPixel={selectedPixel}
-            purchasedPixels={purchasedPixels}
-          />
+          <PixelHeart selectedPixel={selectedPixel} soldPixels={soldPixels} />
         </div>
       </div>
 
@@ -86,7 +84,7 @@ export function PixelSelector({
       {pickerOpen && (
         <PixelPickerOverlay
           selectedPixel={selectedPixel}
-          purchasedPixels={purchasedPixels}
+          soldPixels={soldPixels}
           formattedPrice={formattedPrice}
           onSelect={onSelect}
           onRandomSelect={onRandomSelect}

@@ -17,26 +17,27 @@ import { toolButton } from "../styles";
 import { ZoomControls } from "../ui/zoom-controls";
 import { PickerMinimap } from "../ui/picker-minimap";
 import { PickerFooter } from "../ui/picker-footer";
+import { SoldPixels } from "@/src/5-entities/heart-pixel/types";
 
 type PixelPickerOverlayProps = {
   selectedPixel: number | null;
-  purchasedPixels: Record<number, string>;
+  soldPixels: SoldPixels;
   formattedPrice: string;
-  onSelect: (pixelId: number) => void;
+  onSelect: (pixelNumber: number) => void;
   onRandomSelect: () => void;
   onCheckout: () => void;
   onClose: () => void;
 };
 
 /** Pozicija piksela u mreži srca; broj piksela = id + 1 */
-function getPixelCell(pixelId: number) {
-  const pixel = HEART_PIXELS[pixelId - 1];
+function getPixelCell(pixelNumber: number) {
+  const pixel = HEART_PIXELS[pixelNumber - 1];
   return pixel ? { x: pixel.col, y: pixel.row } : null;
 }
 
 export function PixelPickerOverlay({
   selectedPixel,
-  purchasedPixels,
+  soldPixels,
   formattedPrice,
   onSelect,
   onRandomSelect,
@@ -67,8 +68,8 @@ export function PixelPickerOverlay({
     onRandomSelect();
   };
 
-  const handlePixelSelect = (pixelId: number) => {
-    if (!panZoom.isSelectionBlocked()) onSelect(pixelId);
+  const handlePixelSelect = (pixelNumber: number) => {
+    if (!panZoom.isSelectionBlocked()) onSelect(pixelNumber);
   };
 
   const contentWidth = panZoom.baseWidth * view.scale;
@@ -129,7 +130,7 @@ export function PixelPickerOverlay({
             <PixelHeart
               interactive
               selectedPixel={selectedPixel}
-              purchasedPixels={purchasedPixels}
+              soldPixels={soldPixels}
               onSelect={handlePixelSelect}
               className="!max-w-none"
             />
@@ -150,7 +151,7 @@ export function PixelPickerOverlay({
             viewport={panZoom.size}
             content={{ width: contentWidth, height: contentHeight }}
             selectedPixel={selectedPixel}
-            purchasedPixels={purchasedPixels}
+            soldPixels={soldPixels}
           />
         ) : (
           <p className="pointer-events-none absolute inset-x-0 bottom-3 text-center text-[11px] leading-none text-[#0D2734]/55">

@@ -9,13 +9,16 @@ import {
   HEART_COLUMNS,
   HEART_PIXELS,
   HEART_ROWS,
-  isInitiallySold,
+  toPixelNumber,
 } from "@/src/5-entities/heart-pixel";
 import { pixelClip } from "@/src/6-shared/ui/pixel-clip";
 import { PixelHeartIcon } from "@/src/6-shared/icons/heaer-icon-pixel";
+import { SoldPixels } from "@/src/5-entities/heart-pixel/types";
 
 type StoryContentProps = {
   donation: DonationRecord;
+  /** Trenutno stanje srca (sa backenda + kupovina iz ove sesije). */
+  soldPixels: SoldPixels;
 };
 
 type StoryCopy = {
@@ -44,7 +47,10 @@ const hexToRgba = (hex: string, alpha: number) => {
   return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 };
 
-const createStoryHeartDataUrl = (donation: DonationRecord): string => {
+const createStoryHeartDataUrl = (
+  donation: DonationRecord,
+  soldPixels: SoldPixels,
+): string => {
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
 
@@ -62,9 +68,8 @@ const createStoryHeartDataUrl = (donation: DonationRecord): string => {
   const pixelHeight = canvas.height / HEART_ROWS;
 
   HEART_PIXELS.forEach((pixel) => {
-    const pixelNumber = pixel.id + 1;
-    const purchased = pixelNumber === donation.id;
-    const sold = isInitiallySold(pixel.id) || purchased;
+    const pixelNumber = toPixelNumber(pixel.id);
+    const sold = soldPixels.has(pixelNumber) || pixelNumber === donation.id;
 
     context.fillStyle = sold
       ? pixel.targetColor
@@ -215,7 +220,7 @@ function CloseIcon() {
   );
 }
 
-export function StoryContent({ donation }: StoryContentProps) {
+export function StoryContent({ donation, soldPixels }: StoryContentProps) {
   const t = useTranslations("InstagramStoryDialog");
   const locale = useLocale();
 
@@ -244,7 +249,7 @@ export function StoryContent({ donation }: StoryContentProps) {
 
     const prepareStory = async () => {
       try {
-        heartImage.src = createStoryHeartDataUrl(donation);
+        heartImage.src = createStoryHeartDataUrl(donation, soldPixels);
 
         await waitForImage(heartImage);
         await nextPaint();
@@ -270,7 +275,7 @@ export function StoryContent({ donation }: StoryContentProps) {
     return () => {
       cancelled = true;
     };
-  }, [donation, locale, t]);
+  }, [donation, soldPixels, locale, t]);
 
   const downloadStory = () => {
     if (!storyFile) return;

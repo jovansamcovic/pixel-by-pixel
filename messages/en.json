@@ -1,4 +1,26 @@
 {
+  "Metadata": {
+    "title": "Izaberi pixel",
+    "shareTitle": "Srce Kragujevca",
+    "description": "A charity platform that raises funds through pixel purchases. Choose your pixel and become part of a shared picture of kindness.",
+    "keywords": [
+      "charity campaign",
+      "charity donations",
+      "donations",
+      "buy a pixel",
+      "pixel of kindness",
+      "izaberi pixel",
+      "pixel by pixel",
+      "Kragujevac"
+    ],
+    "openGraph": {
+      "description": "One pixel. One step closer to the goal. Choose your pixel and leave your mark in a shared heart.",
+      "imageAlt": "Srce Kragujevca — charity campaign"
+    },
+    "twitter": {
+      "description": "Choose your pixel and become part of a shared picture of kindness."
+    }
+  },
   "Header": {
     "demoConcept": "Interactive demo concept",
     "paymentsDisabled": "Payments are not active",
@@ -36,29 +58,22 @@
       "reset": "Reset",
       "resetAriaLabel": "Reset zoom",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out",
-      "open": "Choose a pixel",
-      "previewAriaLabel": "Open the heart to choose a pixel",
-      "picker": {
-        "title": "Choose a pixel",
-        "close": "Close",
-        "hint": "Pinch, scroll or use + / − to zoom",
-        "selected": "Selected pixel #{id}",
-        "empty": "Tap a pixel in the heart",
-        "buy": "Buy this pixel"
-      }
+      "zoomOut": "Zoom out"
+    },
+    "open": "Choose a pixel",
+    "previewAriaLabel": "Open the heart to choose a pixel",
+    "picker": {
+      "title": "Choose a pixel",
+      "close": "Close",
+      "hint": "Pinch, scroll or use + / − to zoom",
+      "selected": "Selected pixel #{id}",
+      "empty": "Tap a pixel in the heart",
+      "buy": "Buy this pixel"
     }
   },
   "PixelHeart": {
     "ariaLabel": "Pixel heart of Kragujevac",
-    "donors": {
-      "mina": "Mina P.",
-      "vukAndTara": "Vuk and Tara",
-      "ilicFamily": "The Ilić family",
-      "luka": "Luka M.",
-      "anaAndOgnjen": "Ana and Ognjen",
-      "anonymous": "Anonymous"
-    },
+    "anonymous": "Anonymous",
     "soldAriaLabel": "Pixel {pixel}, already taken by {donor}",
     "availableAriaLabel": "Pixel {pixel}, available. Select it to donate.",
     "soldTitle": "Donated by {donor}",
