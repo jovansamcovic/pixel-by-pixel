@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type KeyboardEvent } from "react";
+import { useState, type KeyboardEvent, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 
 import { PixelHeart } from "@/src/5-entities/heart-pixel";
@@ -18,6 +18,12 @@ type PixelSelectorProps = {
   onRandomSelect: () => void;
   onCheckout: () => void;
   onPickerClose?: () => void;
+  /**
+   * Sloj preko srca (npr. prstenovi namena). Renderuje se kao SUSEDNI
+   * element preview-a, ne unutar njega — preview je role="button",
+   * a dugmad ne smeju biti ugnežđena u drugo dugme.
+   */
+  heartOverlay?: ReactNode;
 };
 
 export function PixelSelector({
@@ -28,6 +34,7 @@ export function PixelSelector({
   onRandomSelect,
   onCheckout,
   onPickerClose,
+  heartOverlay,
 }: PixelSelectorProps) {
   const t = useTranslations("PixelSelector");
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -53,17 +60,24 @@ export function PixelSelector({
 
   return (
     <div className="flex w-full flex-col items-center">
-      <div
-        role="button"
-        tabIndex={0}
-        aria-label={t("previewAriaLabel")}
-        onClick={openPicker}
-        onKeyDown={handlePreviewKeyDown}
-        className="w-full cursor-zoom-in touch-pan-y p-2 outline-none focus-visible:ring-2 focus-visible:ring-[#E52336]"
-      >
-        <div className="pointer-events-none">
-          <PixelHeart selectedPixel={selectedPixel} soldPixels={soldPixels} />
+      <div className="relative w-full">
+        <div
+          role="button"
+          tabIndex={0}
+          aria-label={t("previewAriaLabel")}
+          onClick={openPicker}
+          onKeyDown={handlePreviewKeyDown}
+          className="w-full cursor-zoom-in touch-pan-y p-2 outline-none focus-visible:ring-2 focus-visible:ring-[#E52336]"
+        >
+          <div className="pointer-events-none">
+            <PixelHeart selectedPixel={selectedPixel} soldPixels={soldPixels} />
+          </div>
         </div>
+
+        {heartOverlay && (
+          // inset-2 = p-2 preview-a, pa se overlay poklapa sa srcem
+          <div className="pointer-events-none absolute inset-2 z-10">{heartOverlay}</div>
+        )}
       </div>
 
       <button

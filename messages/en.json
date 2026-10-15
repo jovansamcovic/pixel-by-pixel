@@ -195,5 +195,27 @@
   },
   "DonationBadge": {
     "label": "My pixel of kindness"
+  },
+  "Causes": {
+    "ringsLabel": "Campaign causes",
+    "watchVideo": "Watch video: {cause}, {percent}% raised",
+    "heading": "Where the money goes",
+    "splitHint": "Every {price} pixel is split the same way.",
+    "ofGoal": "of {goal}",
+    "shareOfDonation": "{share}% of every donation",
+    "fullStory": "Full story",
+    "close": "Close",
+    "back": "Back to the heart",
+    "progressLabel": "Progress",
+    "perPixel": "Your pixel brings {amount} here.",
+    "story": "Story",
+    "whatWeBuy": "What exactly we're buying",
+    "priceTbd": "Coming soon",
+    "moneyPath": "Where the money goes next",
+    "stepCurrent": "In progress",
+    "stepDone": "done",
+    "gallery": "Photos",
+    "otherCauses": "Other causes",
+    "buyPixel": "Choose a pixel"
   }
 }

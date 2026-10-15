@@ -196,5 +196,27 @@
   "DonationBadge": {
     "label": "Moj piksel dobrote"
   },
-  "back": "Nazad"
+  "back": "Nazad",
+    "Causes": {
+    "ringsLabel": "Namene akcije",
+    "watchVideo": "Pogledaj video: {cause}, prikupljeno {percent}%",
+    "heading": "Kuda idu sredstva",
+    "splitHint": "Svaki piksel od {price} deli se po istom ključu.",
+    "ofGoal": "od {goal}",
+    "shareOfDonation": "{share}% svake donacije",
+    "fullStory": "Cela priča",
+    "close": "Zatvori",
+    "back": "Nazad na srce",
+    "progressLabel": "Napredak",
+    "perPixel": "Tvoj piksel ovde donosi {amount}.",
+    "story": "Priča",
+    "whatWeBuy": "Šta tačno kupujemo",
+    "priceTbd": "Uskoro",
+    "moneyPath": "Put novca",
+    "stepCurrent": "U toku",
+    "stepDone": "završeno",
+    "gallery": "Fotografije",
+    "otherCauses": "Ostale namene",
+    "buyPixel": "Izaberi piksel"
+  }
 }
